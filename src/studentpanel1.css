@@ -1,0 +1,14 @@
+#abc{
+    margin-top:33px;
+    margin-left:10px;
+    
+}
+#menu{
+    margin-top:60px;
+}
+.side{
+    float:right;
+    height:500px;
+    width:900px;
+    display:none;
+}
