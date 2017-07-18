@@ -7,6 +7,7 @@ import './page.css';
 import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
+import * as firebase from 'firebase';
 
 
 const style = {
@@ -25,13 +26,12 @@ class Singin extends Component {
         this.save = this.save.bind(this);
     this.submitted = this.submitted.bind(this);
     this.state ={
-        username:'',
-        password:'',
-        type:'',
+        email:'',
+        password:''
     }
 }
 submitted(e){
-  let abc = JSON.parse(localStorage.getItem('student'))
+  /*let abc = JSON.parse(localStorage.getItem('student'))
   let arr = abc == null  ? [] : abc;
   let index=arr.findIndex(i => i.username === this.state.username);
   if(index>=0 && arr[index].password === this.state.password ){
@@ -46,7 +46,30 @@ submitted(e){
   else{
       alert('try again');
 
-  }
+  }*/
+
+  firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password).catch(function(error) {
+      // Handle Errors here.
+     var errorCode = error.code;
+      var errorMessage = error.message;
+      console.log( errorCode + errorMessage);
+     
+    }).then(()=>{
+    //var typeCheck;
+    var userId = firebase.auth().currentUser.uid;
+    const rootRef= firebase.database().ref();
+    const userRef = rootRef.child('USER/'+ userId);
+    userRef.on('value', snapshot => {
+      if(snapshot.val().type === 'student'){
+        //this.props.history.push('/student');
+        this.props.history.push('/student');
+    }
+      else{
+        this.props.history.push('/company');
+      }
+});
+         
+  });
 }
 save(e){
    let input1 = {};
@@ -65,9 +88,9 @@ save(e){
     
     <Paper style={style} zDepth={3} rounded={false} id="abc" >
     <TextField
-      hintText="user name"
-      floatingLabelText="username"
-      name="username"
+      hintText="email"
+      floatingLabelText="email"
+      name="email"
       onChange={this.save}
 
     />

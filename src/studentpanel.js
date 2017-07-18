@@ -49,7 +49,7 @@ getjobs(){
   var company=document.getElementById('companies');
   var jobs=document.getElementById('jobs');
   var apply=document.getElementById('apply');
-   let arr =[];
+  
    company.style.display = 'block';
     jobs.style.display = 'none';
     apply.style.display = 'none';    
@@ -80,11 +80,8 @@ getjobs(){
 
   render() {
     var items = this.getdata().map((elem,i)=>{
-      if(elem.type == 'company'){
+      if(elem.type === 'company'){
         return <li key={i}><span>companyname : {elem.username}</span></li>
-      }
-      else{
-
       }
     });
 
@@ -108,7 +105,7 @@ getjobs(){
         <Paper style={style} zDepth={3} rounded={false} id="abc" >
     
         <div>
-          <img src='image.png' height="150" width="225" />
+          <img src='image.png' height="150" width="225" alt = "panelImage"/>
           <br />
           <h1>Students</h1>
         </div>

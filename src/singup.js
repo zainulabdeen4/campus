@@ -8,8 +8,9 @@ import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
-import ActionFavorite from 'material-ui/svg-icons/action/favorite';
-import ActionFavoriteBorder from 'material-ui/svg-icons/action/favorite-border';
+//import ActionFavorite from 'material-ui/svg-icons/action/favorite';
+//import ActionFavoriteBorder from 'material-ui/svg-icons/action/favorite-border';
+import * as firebase from 'firebase';
 
 
 
@@ -50,13 +51,34 @@ class Singup extends Component {
    this.setState(input1);
 }
 submitted(e){
-  let abc = JSON.parse(localStorage.getItem('student'))
+  /*let abc = JSON.parse(localStorage.getItem('student'))
   let arr = abc == null  ? [] : abc;
   this.state.username = this.state.username.toLocaleLowerCase();
   arr.push(this.state);
   localStorage.setItem('student',JSON.stringify(arr));
   
-   this.props.history.push('/');
+   this.props.history.push('/');*/
+
+   firebase.auth().createUserWithEmailAndPassword(this.state.email,this.state.password).catch(function(error) {
+      // Handle Errors here.
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      console.log(errorCode + errorMessage);
+    }).then(()=>{
+     
+         var uid = firebase.auth().currentUser.uid;
+    //         var rootRef = firebase.database().ref();
+    //  var storesRef = rootRef.child('Student');
+    //  var newStoreRef = storesRef.set({
+      firebase.database().ref('USER/'+ uid).set({
+      name:this.state.username,
+      Email:this.state.email,
+      Pass:this.state.password,
+      type:this.state.type
+
+     });
+      this.props.history.push('/');
+  });
 
   }
   

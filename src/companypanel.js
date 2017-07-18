@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Toolbar from './dashtoolbar';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import Tabs1 from './tab';
+//import Tabs1 from './tab';
 import './studentpanel1.css';
 
 //import './page.css';
@@ -91,11 +91,8 @@ save(e){
 
   render() {
       var items=this.getdata().map((elem,i)=>{
-      if(elem.type == 'student'){
+      if(elem.type === 'student'){
         return <li key={i}><span>student name : {elem.username}</span></li>
-      }
-      else{
-
       }
     });
 
@@ -110,7 +107,7 @@ save(e){
         <Paper style={style} zDepth={3} rounded={false} id="abc" >
     
         <div>
-          <img src='image.png' height="150" width="225" />
+          <img src='image.png' height="150" width="225" alt = "panelImage" />
           <br />
           <h1>company</h1>
         </div>
