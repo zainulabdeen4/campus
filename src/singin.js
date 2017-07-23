@@ -31,23 +31,6 @@ class Singin extends Component {
     }
 }
 submitted(e){
-  /*let abc = JSON.parse(localStorage.getItem('student'))
-  let arr = abc == null  ? [] : abc;
-  let index=arr.findIndex(i => i.username === this.state.username);
-  if(index>=0 && arr[index].password === this.state.password ){
-     if(arr[index].type === 'student'){
-         this.props.history.push('/student');
-    }
-    else{
-       this.props.history.push('/company');
-    }
-
-  }
-  else{
-      alert('try again');
-
-  }*/
-
   firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password).catch(function(error) {
       // Handle Errors here.
      var errorCode = error.code;
@@ -64,9 +47,18 @@ submitted(e){
         //this.props.history.push('/student');
         this.props.history.push('/student');
     }
-      else{
+   if(snapshot.val().type === 'company'){
         this.props.history.push('/company');
-      }
+    }
+    if(snapshot.val().type === 'admin'){
+      this.props.history.push('/admin');
+
+    }
+    else{
+      
+    }
+     
+
 });
          
   });

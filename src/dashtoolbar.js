@@ -9,19 +9,35 @@ import React, { Component } from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
 import {Toolbar, ToolbarGroup} from 'material-ui/Toolbar';
 import './toolbar.css';
-import {Link} from 'react-router-dom';
+//import {Link} from 'react-router-dom';
+import * as firebase from 'firebase';  
+
 
 class Toolbar2 extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+   
+    super();
+
+     this.submitted=this.submitted.bind(this);
+
     this.state = {
       value: 3,
     };
   }
   
 
-  handleChange = (event, index, value) => this.setState({value});
- 
+  //handleChange = (event, index, value) => this.setState({value});
+ submitted(){
+   firebase.auth().signOut().then(() => {
+  this.props.history.push('/');    
+
+}).catch(function(error) {
+  console.log(error);
+});
+
+
+
+ }
 
   render() {
     return (
@@ -29,8 +45,9 @@ class Toolbar2 extends Component {
         <span id="titl">Campus Recruitment System</span>
         <ToolbarGroup>
           
-          <Link to="/">
-          <RaisedButton label="log out" primary={true}/> </Link> 
+          
+          <RaisedButton label="log out" primary={true} onClick={this.submitted}/> 
+           
           &nbsp;   
       
                              

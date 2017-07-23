@@ -9,6 +9,8 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import Student from './studentpanel';
 import Company from './companypanel';
 import * as firebase from 'firebase';
+import Admin from './admin'
+//import Adminlog from './adminlog';
 
 
 injectTapEventPlugin();
@@ -30,6 +32,7 @@ ReactDOM.render(
     <Route path='/singup' component={Singup} />
     <Route path='/student' component={Student} />
     <Route path='/company' component={Company} />
+     <Route path='/admin' component={Admin} />
     </div>
     </BrowserRouter>    
     , document.getElementById('root'));

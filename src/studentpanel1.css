@@ -1,6 +1,7 @@
 #abc{
     margin-top:33px;
     margin-left:10px;
+    height:400px;
     
 }
 #menu{
@@ -9,6 +10,5 @@
 .side{
     float:right;
     height:500px;
-    width:900px;
-    display:none;
+    width:768px;
 }

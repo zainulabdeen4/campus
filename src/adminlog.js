@@ -32,7 +32,7 @@ const styles = {
 
 
 
-class Singup extends Component {
+class Adminlog extends Component {
 
   constructor(){
     super();
@@ -42,7 +42,7 @@ class Singup extends Component {
       username: '',
       password: '',
       email : '',
-      type : ''
+      type : 'admin'
     }
   }
   save(e){
@@ -66,13 +66,11 @@ submitted(e){
       Pass:this.state.password,
       type:this.state.type
 
-
      });
      firebase.auth().signOut().then(() => {
     }).catch(function(error) {
     console.log(error);
-    });
-      this.props.history.push('/');
+});
   });
 
   }
@@ -109,21 +107,6 @@ submitted(e){
 
       <br />
       
-      <RadioButtonGroup name="type"  onChange = {this.save} >
-      <RadioButton
-        value='student'
-        label='student'
-        style={styles.radioButton}
-        
-      />
-      <RadioButton
-        value='company'
-        label='company'
-        style={styles.radioButton}
-      />
-
-      </RadioButtonGroup>
-      
     <br />
 
     <RaisedButton label="sign up"
@@ -139,4 +122,4 @@ submitted(e){
   }
 }
 
-export default Singup;
+export default Adminlog;

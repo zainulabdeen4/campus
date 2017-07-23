@@ -3,13 +3,13 @@ import Toolbar2 from './dashtoolbar';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 //import Tabs1 from './tab';
 import './studentpanel1.css';
+//import ReactDOM from 'react-dom';
 import { BrowserRouter, Route , Link } from 'react-router-dom';
 import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
-import ViewCompany from './viewcompany';
-import ViewJobs from './viewjobs';
-import AddDetails from './adddetails';
-import Singin from './singin';
+import ViewCompany from './admincompany';
+import ViewJobs from './adminjobs';
+import Students from './adminstudents';
 
 
 
@@ -22,7 +22,7 @@ const style = {
 
 
 
-class Student extends Component {
+class Admin extends Component {
   
   
 
@@ -38,7 +38,7 @@ class Student extends Component {
         <BrowserRouter >
         <div>
         <div>
-        <Toolbar2 {...this.props}/>
+        <Toolbar2 {...this.props} />
         
         </div>
         <Paper style={style} zDepth={3} rounded={false} id="abc" >
@@ -46,16 +46,16 @@ class Student extends Component {
         <div>
           <img src='image.png' height="150" width="225" alt = "panelImage"/>
           <br />
-          <h1>Students</h1>
+          <h1>Admin</h1>
         </div>
         <div id="menu">
           <table>
 
-            <tr><td><Link to="/student/studentdetails"><RaisedButton label="add details" primary={true} /></Link></td> </tr>
+            <tr><td><Link to="/admin/students"><RaisedButton label="view students" primary={true} /></Link></td> </tr>
             <tr>
-            <td><Link to='/student/viewcompany'><RaisedButton label="view companies list" primary={true}   /> </Link></td></tr>
+            <td><Link to='/admin/viewcompany'><RaisedButton label="view companies" primary={true}   /> </Link></td></tr>
 
-            <tr><td><Link to='/student/viewjobs'><RaisedButton label="view jobs list" primary={true}  /></Link></td> </tr>
+            <tr><td><Link to='/admin/viewjobs'><RaisedButton label="view jobs list" primary={true}  /></Link></td> </tr>
             </table>
           </div>
     
@@ -63,10 +63,9 @@ class Student extends Component {
         </Paper>
         
         <div className = 'side'>
-          <Route path="/student/studentdetails" component={AddDetails}/>
-            <Route path='/student/viewcompany' component={ViewCompany}/>
-            <Route path='/student/viewjobs' component={ViewJobs}/>
-            <Route exact path='/' component={Singin} />
+          <Route path="/admin/students" component={Students}/>
+            <Route path='/admin/viewcompany' component={ViewCompany}/>
+            <Route path='/admin/viewjobs' component={ViewJobs}/>
         </div>
 
     </div>
@@ -78,4 +77,4 @@ class Student extends Component {
   }
 }
 
-export default Student;
+export default Admin;

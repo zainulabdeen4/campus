@@ -1,21 +1,26 @@
 import React, { Component } from 'react';
-import Toolbar from './dashtoolbar';
+import Toolbar2 from './dashtoolbar';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 //import Tabs1 from './tab';
 import './studentpanel1.css';
-
+import { BrowserRouter, Route , Link } from 'react-router-dom';
 //import './page.css';
 //import Paper from 'material-ui/Paper';
 //import TextField from 'material-ui/TextField';
 //import RaisedButton from 'material-ui/RaisedButton';
 import Paper from 'material-ui/Paper';
-import TextField from 'material-ui/TextField';
+//import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
+import ViewCandidates from './viewcandidates';
+import PostJobs from './postjobs';
+import ViewStudents from './viewstudents';
+import MyJobs from './myjobs';
+//import * as firebase from 'firebase';
 
 
 
 const style = {
-  height: 400,
+  height: 450,
   width: 260,
   display: 'inline-block',
    
@@ -24,84 +29,16 @@ const style = {
 
 
 class Company extends Component {
-  constructor(){
-    super();
-
-    this.students = this.students.bind(this);
-    this.jobs = this.jobs.bind(this);
-    this.candidates = this.candidates.bind(this);
-    this.getdata = this.getdata.bind(this);
-
-    this.save = this.save.bind(this);
-    this.submitted = this.submitted.bind(this);
-
-    this.state={
-      title : '',
-      salary: '',
-      description:''
-    }
-  }
-
-getdata(){
-  let abc = JSON.parse(localStorage.getItem('student'))
-  let arr = abc == null  ? [] : abc;
-  return arr;
-  }
-  students(e){
-    
-  var students=document.getElementById('students');
-  var jobs=document.getElementById('jobs');
-  var canditates=document.getElementById('candidates');
-   
-   students.style.display = 'block';
-    jobs.style.display = 'none';
-  canditates.style.display = 'none';        }
-  
-  jobs(e){
-    
-  var students=document.getElementById('students');
-  var jobs=document.getElementById('jobs');
-  var canditates=document.getElementById('candidates');
-
-   students.style.display = 'none';
-    jobs.style.display = 'block';
-  canditates.style.display = 'none';           }
-
-   candidates(e){
-    
-  var students=document.getElementById('students');
-  var jobs=document.getElementById('jobs');
-  var canditates=document.getElementById('candidates');
-
-   students.style.display = 'none';
-    jobs.style.display = 'none';
-  canditates.style.display = 'block';            }
-
-  submitted(e){
-  let abc = JSON.parse(localStorage.getItem('jobs'))
-  let arr = abc == null  ? [] : abc;
-  arr.push(this.state);
-  localStorage.setItem('jobs',JSON.stringify(arr)); 
-}
-save(e){
-   let input1 = {};
-   input1[e.target.name] = e.target.value ;
-   this.setState(input1);
-}
-
   render() {
-      var items=this.getdata().map((elem,i)=>{
-      if(elem.type === 'student'){
-        return <li key={i}><span>student name : {elem.username}</span></li>
-      }
-    });
+      
 
     return (
       
+      <BrowserRouter>
       <MuiThemeProvider>
         <div>
         <div>
-        <Toolbar />
+        <Toolbar2 {...this.props} />
         
         </div>
         <Paper style={style} zDepth={3} rounded={false} id="abc" >
@@ -113,58 +50,27 @@ save(e){
         </div>
         <div id="menu">
           <table>
-            <tr>
-            <td><RaisedButton label="view students" primary={true} onTouchTap	={this.students}  /></td></tr>
+            <tr><td><Link to='/company/students'><RaisedButton label="view students" primary={true}   /> </Link></td></tr>
 
-            <tr><td><RaisedButton label="post jobs" primary={true} onTouchTap	={this.jobs} /></td> </tr>
-            <tr><td><RaisedButton label="candidates list" primary={true} onTouchTap	={this.candidates} /></td></tr>
+            <tr><td><Link to='/company/postjobs'><RaisedButton label="post jobs" primary={true}  /></Link></td> </tr>
+            <tr><td><Link to='/company/myjobs'><RaisedButton label="jobs posted" primary={true}  /></Link></td> </tr>
+            <tr><td><Link to='/company/viewcandidates'><RaisedButton label="view candidates" primary={true}  /></Link></td></tr>
             </table>
           </div>
     
     
         </Paper>
-        <div className="side" id='students' >
-            <h1>students list</h1>
-            <br />
-            <ul>
-                {items}
-            </ul>
-        </div>
-        <div className="side" id='jobs' ><h1>post jobs</h1>
-        <TextField
-            hintText="title"
-            floatingLabelText="title"
-            type="text"
-            name="title"
-            onChange={this.save}
-        />
-        <br />
+        <div className="side">
+          <Route path="/company/students" component={ViewStudents}/>
+          <Route path="/company/postjobs" component={PostJobs}/>
+          <Route path="/company/myjobs" component={MyJobs}/>
+          <Route path="/company/viewcandidates" component={ViewCandidates}/>
 
-        <TextField
-            hintText="salary"
-            floatingLabelText="salary"
-            type="number"
-            name="salary"
-            onChange={this.save}
-        />
-        <br />
-        <TextField
-            hintText="description"
-            floatingLabelText="description"
-            type="text"
-            name="description"
-            onChange={this.save}
-        />
-
-        <br />
-        <RaisedButton label="submit" primary={true} 
-        onClick={this.submitted} />
         </div>
-        <div className="side" id='candidates' ><h1>apply</h1></div>
     
     </div>
     </MuiThemeProvider>
-    
+    </ BrowserRouter>
     );
   }
 }
